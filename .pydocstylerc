@@ -1,0 +1,3 @@
+[pep257]
+convention=pep257
+add-ignore=D102
