@@ -11,10 +11,10 @@ Table attributes can be specified as follows::
 
 Todo:
 ----
--deal with single and double primes
--deal with other inline types that pandoc could create from attr string
--escaped quotation marks in vals?
--escaped underscores in vals?
+- deal with single and double primes
+- deal with other inline types that pandoc could create from attr string
+- escaped quotation marks in vals?
+- escaped underscores in vals?
 """
 
 import re
@@ -192,15 +192,13 @@ def parse_attr(attr_str):
     ident_match = re.search(ident_re, attr_str)
     ident = ident_match.group('id') if ident_match else None
 
-    # re.findall() returns a list of the *groups* it matched whereas
-    # re.finditer() returns an iterator yielding all the matches it found.
+    # re.findall() returns a list of the *groups* matched whereas re.finditer()
+    # returns an iterator yielding all the matches found.
     class_matches = re.finditer(classes_re, attr_str)
     classes = [ match.group('class') for match in class_matches ]
 
     keyval_matches = re.finditer(keyvals_re, attr_str)
-    # quotes need to be stripped off val if present
     keyvals = { match.group('key') : match.group('val')
-               #re.match(r'^["\']?(.*?)["\']?$', match.group('val')).group(1)
                                                   for match in keyval_matches }
     # convert dict to list of lists to match pandoc's AST representation
     keyvals = [ [ key, keyvals[key] ] for key in keyvals ]
@@ -222,9 +220,9 @@ def add_tab_attr(key, value, _format, meta): # pylint: disable=unused-argument
             # See here for the Table data structure:
             # https://hackage.haskell.org/package/pandoc-types-1.22.2.1/docs/Text-Pandoc-Definition.html#t:Block
             # The following could more conveniently be done using
-            # pandocfilters' Table() function, but unfortunately this
-            # currently takes an incorrect number of arguments.
-            tab_content = [ [ident, classes, keyvals], \
+            # pandocfilters' Table() function, but unfortunately this currently
+            # takes an incorrect number of arguments.
+            tab_content = [ [ident, classes, keyvals],
                            [None, [{'t': 'Plain', 'c': caption}]], *table[2:] ]
             return {'t': 'Table', 'c': tab_content}
 
