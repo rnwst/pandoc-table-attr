@@ -166,6 +166,4 @@ class TestAddTabAttrs(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    suite = unittest.TestSuite()
-    suite.addTests(unittest.makeSuite(TestAddTabAttrs))
-    result = unittest.TextTestRunner(verbosity=1).run(suite)
+    unittest.main()
