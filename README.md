@@ -13,7 +13,7 @@ FirstCol   SecondCol
 ---------  ----------
 FirstCell  SecondCell
 ```
-The attributes specified in the table caption will then be added to pandoc's AST and used by pandoc's writers (the HTML writer utilises table attributes, but the author hasn't tested this with any of the other writers yet).
+The attributes specified in the table caption will then be added to pandoc's AST and used by pandoc's writers (the HTML writer utilises table attributes, but I haven't tested this with any of the other writers yet).
 
 Table attributes must appear at the end of the table caption.
 
@@ -28,4 +28,3 @@ Pandoc will parse `*val*` as *emphasized text*, instead of literal asterisks. Ho
 ```
 Table: Table caption. {#id .class key="\*val\*"}
 ```
-The author hopes to remove this limitation soon.
