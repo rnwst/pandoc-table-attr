@@ -161,7 +161,10 @@ def parse_caption(table):
     '{#id .class key="val"}'. Return 'clean' caption without attributes as well
     as id, classes, and keyvals.
     """
-    caption = table[1][1][0]['c']
+    try:
+        caption = table[1][1][0]['c']
+    except IndexError:
+        caption = None
 
     if not caption:
         return None, None

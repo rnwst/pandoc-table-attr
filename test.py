@@ -30,7 +30,8 @@ def pandoc(string, plain=False):
 def mock_table(initial_caption, attr=None):
     """Create a mock table for pandoc."""
     # convert initial_caption to AST:
-    caption_ast = pandoc(initial_caption, plain=True)
+    caption_ast = \
+        pandoc(initial_caption, plain=True) if initial_caption else []
     # See here for the Table data structure:
     # https://hackage.haskell.org/package/pandoc-types-1.22.2.1/docs/Text-Pandoc-Definition.html#t:Block
     short_caption = None
@@ -130,6 +131,12 @@ class TestAddTabAttrs(unittest.TestCase):
         self.assertEqual(caption, None)
         self.assertEqual(attr_str, '#id .class key="val"')
 
+        # Empty caption.
+        initial_caption = None
+        caption, attr_str = parse_caption(mock_table(initial_caption))
+        self.assertEqual(caption, None)
+        self.assertEqual(attr_str, None)
+
 
     def test_parse_attr(self):
         attrs = [ ('#id .class key=val',
@@ -153,6 +160,10 @@ class TestAddTabAttrs(unittest.TestCase):
 
 
     def test_add_tab_attrs(self):
+        # No caption.
+        self.assertEqual(None,
+                         add_tab_attr('Table', mock_table(None), None, None))
+
         caption = "Some caption."
         self.assertEqual(None,
                         add_tab_attr('Table', mock_table(caption), None, None))
