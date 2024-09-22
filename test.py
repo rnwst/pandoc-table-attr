@@ -160,13 +160,23 @@ class TestAddTabAttrs(unittest.TestCase):
 
 
     def test_add_tab_attrs(self):
-        # No caption.
+        # No caption. Filter needs to leave table unmodified (return 'None').
         self.assertEqual(None,
                          add_tab_attr('Table', mock_table(None), None, None))
 
+        # Caption without attribute string should leave table unmodified
+        # (return 'None').
         caption = "Some caption."
         self.assertEqual(None,
                         add_tab_attr('Table', mock_table(caption), None, None))
+
+        # Caption containing only attr string. Filter needs to return modified
+        # table.
+        caption = '{#id}'
+        self.assertEqual( { 't': 'Table',
+                            'c': mock_table(None, attr=['id', [], []]) },
+                          add_tab_attr('Table',
+                                             mock_table(caption), None, None) )
 
         caption = 'Some caption. {#id}'
         self.assertEqual( { 't': 'Table',

@@ -225,8 +225,9 @@ def add_tab_attr(key, value, _format, meta): # pylint: disable=unused-argument
             # The following could more conveniently be done using
             # pandocfilters' Table() function, but unfortunately this currently
             # takes an incorrect number of arguments.
+            caption_elt = [{'t': 'Plain', 'c': caption}] if caption else []
             tab_content = [ [ident, classes, keyvals],
-                           [None, [{'t': 'Plain', 'c': caption}]], *table[2:] ]
+                            [None, caption_elt], *table[2:] ]
             return {'t': 'Table', 'c': tab_content}
 
     return None
