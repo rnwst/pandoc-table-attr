@@ -144,13 +144,13 @@ class TestAddTabAttrs(unittest.TestCase):
                   ('#id',
                    ('id', [], [])),
                   ('.class1 .class2',
-                   (None, ['class1', 'class2'], [])),
+                   ('', ['class1', 'class2'], [])),
                   ('key1=val1 key2=val2',
-                   (None, [], [['key1', 'val1'], ['key2', 'val2']])),
+                   ('', [], [['key1', 'val1'], ['key2', 'val2']])),
                   ('key="val"',
-                   (None, [], [['key', 'val']])),
+                   ('', [], [['key', 'val']])),
                   ('key=val key=val',
-                   (None, [], [['key', 'val']])) ]
+                   ('', [], [['key', 'val']])) ]
 
         for attr, (ident, classes, keyvals) in attrs:
             _ident, _classes, _keyvals = parse_attr(attr)

@@ -193,7 +193,7 @@ def parse_attr(attr_str):
     ident_re, classes_re, keyvals_re = attr_regex(components=True)
 
     ident_match = re.search(ident_re, attr_str)
-    ident = ident_match.group('id') if ident_match else None
+    ident = ident_match.group('id') if ident_match else ''
 
     # re.findall() returns a list of the *groups* matched whereas re.finditer()
     # returns an iterator yielding all the matches found.
